@@ -1,3 +1,9 @@
 spring:
   application:
     name: climalert
+
+weather:
+  api:
+    url: ${WEATHER_API_URL}
+    key: ${WEATHER_API_KEY}
+    location: ${WEATHER_API_LOCATION:-34.6037,-58.3816}
