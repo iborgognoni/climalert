@@ -27,3 +27,10 @@ alertas:
   valores-criticos:
     temperatura: ${TEMPERATURA_CRITICA:35}
     humedad: ${HUMEDAD_CRITICA:60}
+
+scheduler:
+  consulta-clima:
+    intervalo: ${INTERVALO_CONSULTA_CLIMA:300000}
+
+  analisis-alertas:
+    intervalo: ${INTERVALO_ANALISIS_ALERTAS:60000}

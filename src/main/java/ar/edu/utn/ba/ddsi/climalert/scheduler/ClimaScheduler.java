@@ -17,7 +17,7 @@ public class ClimaScheduler {
         this.repository = repository;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRateString = "${scheduler.consulta-clima.intervalo}")
     public void consultarClima() {
         ClimaActual clima = apiClima.obtenerClimaActual();
         repository.save(clima);

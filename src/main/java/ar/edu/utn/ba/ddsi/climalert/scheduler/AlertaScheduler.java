@@ -17,7 +17,7 @@ public class AlertaScheduler {
         this.alertaService = alertaService;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRateString = "${scheduler.analisis-alertas.intervalo}")
     public void analizarUltimoClima() {
         repository.findTopByOrderByFechaConsultaDesc()
                 .ifPresent(alertaService::procesar);
