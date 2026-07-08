@@ -1,25 +1,25 @@
 package ar.edu.utn.ba.ddsi.climalert.scheduler;
 
 import ar.edu.utn.ba.ddsi.climalert.repository.ClimaActualRepository;
+import ar.edu.utn.ba.ddsi.climalert.service.AlertaService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AlertaScheduler {
 
-    private final ClimaActualRepository climaActualRepository;
+    private final ClimaActualRepository repository;
+    private final AlertaService alertaService;
 
-    public AlertaScheduler(ClimaActualRepository climaActualRepository) {
-        this.climaActualRepository = climaActualRepository;
+    public AlertaScheduler(ClimaActualRepository repository,
+                           AlertaService alertaService) {
+        this.repository = repository;
+        this.alertaService = alertaService;
     }
 
-    @Scheduled(fixedRate = 10000) // 60000 cada 1 minuto
-    public void analizarAlertas() {
-        climaActualRepository.findTopByOrderByFechaConsultaDesc()
-                .ifPresent(clima -> {
-                    if (clima.getTemperatura() > 35 && clima.getHumedad() > 60) {
-                        System.out.println("ALERTA CLIMÁTICA: temperatura alta y humedad elevada");
-                    }
-                });
+    @Scheduled(fixedRate = 5000)
+    public void analizarUltimoClima() {
+        repository.findTopByOrderByFechaConsultaDesc()
+                .ifPresent(alertaService::procesar);
     }
 }
